@@ -1,1 +1,1 @@
-export const project_name = 'UdaciCards'
+export const PROJECT_NAME = 'UdaciCards'

@@ -3,43 +3,58 @@ import {connect} from 'react-redux'
 import {Alert, StyleSheet, Text, TextInput, View} from 'react-native'
 import {addCard} from '../../actions'
 import {black, grey} from '../../utils/colors'
-import {storeDeck} from "../../utils/storage";
+import {storeCardInDeck, storeDeck} from "../../utils/storage";
 import TextButton from "../TextButton";
+import {udaci} from "../../utils/logs";
 
 class AddCard extends Component {
 
     state = {
-        question,answer: ''
+        question: '',
+        answer:''
     }
-    deckTitleInputListener = (deckTitle) => {
+
+    questionInputListener = (value) => {
         //handle the state
         this.setState(() => ({
-            deckTitle
+            question : value
         }))
     }
-    handleSubmit = (deckTitle) => {
+
+    answerInputListener = (value) => {
+        //handle the state
+        this.setState(() => ({
+            answer : value
+        }))
+    }
+
+    handleSubmit = (question,answer,title) => {
+
+        const { navigation } = this.props;
+        const {deck} = this.props.navigation.state.params
 
         //blank validation
-        if (!deckTitle) {
-            Alert.alert("Alert", "Deck's title cannot be empty");
+        if (!question) {
+            Alert.alert("Alert", "Question cannot be empty");
+            return;
+        }else if (!answer) {
+            Alert.alert("Alert", "Answer cannot be empty");
             return;
         }
 
-        //if all is valid then add it in our database
-        storeDeck(deckTitle)
 
-        const newDeck = {
-            [deckTitle]: {
-                title: deckTitle,
-                questions: []
-            }
-        }
-        this.props.addCard(newDeck)
-        this.props.navigation.navigate('DeckView', {deck: newDeck[deckTitle]})
+        //if all is valid then add it in our database
+        storeCardInDeck(deck.title,{question:question,answer:answer})
+
+        this.props.addCard(deck.title,{question:question,answer:answer})
+
+        this.setState({ question: '', answer: '' });
+        navigation.goBack();
     }
 
     render() {
         const {question,answer} = this.state
+
         return (
             <View style={styles.deck}>
                 <TextInput

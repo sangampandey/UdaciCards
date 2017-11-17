@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-import {project_name} from "./constants";
+import {PROJECT_NAME} from "./constants";
 
 /**
  * = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = == = = = = = = = = = = = = =
@@ -14,7 +14,7 @@ import {project_name} from "./constants";
  * @returns {*|Promise}
  */
 export function fetchAllDecks () {
-    return AsyncStorage.getItem(project_name)
+    return AsyncStorage.getItem(PROJECT_NAME)
 }
 
 /**
@@ -25,7 +25,7 @@ export function fetchAllDecks () {
 export function fetchDeck (title) {
     console.log("fetchDeck")
     console.log(title)
-    return AsyncStorage.getItem(project_name)
+    return AsyncStorage.getItem(PROJECT_NAME)
         .then(results => {
             const data = JSON.parse(results)
             return data[title]
@@ -38,14 +38,14 @@ export function fetchDeck (title) {
  * @returns {Promise.<TResult>}
  */
 export function storeDeck (title) {
-    return AsyncStorage.getItem(project_name)
+    return AsyncStorage.getItem(PROJECT_NAME)
         .then(results => {
             const data = JSON.parse(results)
             data[title] = {
-                title,
+                title:title,
                 questions: []
             }
-            AsyncStorage.setItem(project_name, JSON.stringify(data))
+            AsyncStorage.setItem(PROJECT_NAME, JSON.stringify(data))
         })
 }
 
@@ -56,13 +56,13 @@ export function storeDeck (title) {
  * @returns {Promise.<TResult>}
  */
 export function storeCardInDeck (title, card) {
-    return AsyncStorage.getItem(project_name)
+    return AsyncStorage.getItem(PROJECT_NAME)
         .then(results => {
             const data = JSON.parse(results)
             data[title] = {
-                title,
-                questions: data[title].questions.push(card)
+                title:title,
+                questions: data[title].questions.concat(card)
             }
-            AsyncStorage.setItem(project_name, JSON.stringify(data))
+            AsyncStorage.setItem(PROJECT_NAME, JSON.stringify(data))
         })
 }

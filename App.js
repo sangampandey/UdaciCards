@@ -1,46 +1,47 @@
 import React from 'react';
-import {Platform, StyleSheet, View,AsyncStorage} from 'react-native';
+import {AsyncStorage, Platform, StyleSheet, View} from 'react-native';
 import {UdaciStatusBar} from "./components/UdaciStatusBar";
 import {StackNavigator, TabNavigator} from 'react-navigation';
 import DeckList from "./components/deck/list";
 import AddDeck from "./components/deck/add";
+import AddCard from "./components/card/add";
 import {purple, white} from "./utils/colors";
 import {Entypo} from '@expo/vector-icons';
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
 import deckListApp from './reducers'
 import DeckView from './components/deck/view'
-import {project_name} from "./utils/constants";
+import {PROJECT_NAME} from "./utils/constants";
 
 //this is to make sure user always start fresh
 AsyncStorage.clear();
 
-const UdaciDecks = {
-    React: {
-        title: 'React',
-        questions: [
-            {
-                question: 'What is React?',
-                answer: 'A library for managing user interfaces'
-            },
-            {
-                question: 'Where do you make Ajax requests in React?',
-                answer: 'The componentDidMount lifecycle event'
-            }
-        ]
-    },
-    JavaScript: {
-        title: 'JavaScript',
-        questions: [
-            {
-                question: 'What is a closure?',
-                answer: 'The combination of a function and the lexical environment within which that function was declared.'
-            }
-        ]
-    }
-}
-
-AsyncStorage.setItem(project_name, JSON.stringify(UdaciDecks))
+// const UdaciDecks = {
+//     React: {
+//         title: 'React',
+//         questions: [
+//             {
+//                 question: 'What is React?',
+//                 answer: 'A library for managing user interfaces'
+//             },
+//             {
+//                 question: 'Where do you make Ajax requests in React?',
+//                 answer: 'The componentDidMount lifecycle event'
+//             }
+//         ]
+//     },
+//     JavaScript: {
+//         title: 'JavaScript',
+//         questions: [
+//             {
+//                 question: 'What is a closure?',
+//                 answer: 'The combination of a function and the lexical environment within which that function was declared.'
+//             }
+//         ]
+//     }
+// }
+//
+// AsyncStorage.setItem(PROJECT_NAME, JSON.stringify(UdaciDecks))
 
 let store = createStore(deckListApp)
 
