@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {StyleSheet,ScrollView, TouchableOpacity,Text,View} from 'react-native'
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import {connect} from 'react-redux'
 import {readDecks} from '../../actions'
 import {fetchAllDecks} from '../../utils/storage'
@@ -37,11 +37,7 @@ class DeckList extends Component {
     }
 }
 
-function mapStateToProps(decks) {
-    return {
-        decks
-    }
-}
+const mapStateToProps = decks => ({decks});
 
 const styles = StyleSheet.create({
     deck: {
