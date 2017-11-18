@@ -4,6 +4,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native'
 import FlipCard from 'react-native-flip-card';
 import {red} from "../utils/colors";
 import TextButton from "./TextButton";
+import styles from "./styles";
 
 class Quiz extends Component {
 
@@ -42,11 +43,11 @@ class Quiz extends Component {
         const {currentQuestion, completedQuiz, correctScore} = this.state
 
         return (
-            <View style={styles.container}>
+            <View style={styles.quiz_container}>
                 {completedQuiz ?
                     <View>
                         <Text style={styles.text}>Your score is : {((correctScore / questions.length) * 100).toFixed(2)}%</Text>
-                        <View style={styles.card}>
+                        <View style={styles.quiz_card}>
 
                             <TextButton text={"Restart Quiz"} type={"white"} onPress={() => this.restart()}/>
 
@@ -59,7 +60,7 @@ class Quiz extends Component {
                         <Text style={styles.indicator}>{currentQuestion}/{questions.length}</Text>
 
                         <FlipCard
-                            style={[styles.card, {marginTop: 100}]}
+                            style={[styles.quiz_card, {marginTop: 100}]}
                             flipHorizontal={true}
                             flipVertical={false}
                             alignHeight={true}
@@ -76,7 +77,7 @@ class Quiz extends Component {
                             </View>
                         </FlipCard>
 
-                        <View style={styles.card}>
+                        <View style={styles.quiz_card}>
                             <TouchableOpacity
                                 style={styles.button}
                                 onPress={() => {
@@ -88,7 +89,7 @@ class Quiz extends Component {
                             </TouchableOpacity>
                         </View>
 
-                        <View style={styles.card}>
+                        <View style={styles.quiz_card}>
                             <TextButton text={"Correct"} type={"green"} onPress={() => this.handleButtonPress(true)}/>
                             <TextButton text={"Incorrect"} type={"red"} onPress={() => this.handleButtonPress(false)}/>
                         </View>
@@ -97,55 +98,5 @@ class Quiz extends Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        marginTop: 10,
-    },
-    indicator: {
-        fontSize: 20,
-        marginLeft: 20,
-        fontWeight: 'bold',
-        textAlign: 'left'
-    },
-    card: {
-        borderWidth: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: 20
-    },
-    text: {
-        fontSize: 40,
-        fontWeight: 'bold',
-        textAlign: 'center'
-    },
-    face: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    back: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    button: {
-        width: 100,
-        height: 30,
-        marginTop: 60,
-        paddingTop: 6,
-        paddingBottom: 6,
-        borderRadius: 3,
-        borderWidth: 1,
-        borderColor: 'transparent',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: red,
-        fontSize: 20,
-        fontWeight: 'bold'
-    }
-})
 
 export default connect(null)(Quiz)

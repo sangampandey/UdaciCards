@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
-import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native'
 import {connect} from 'react-redux'
 import {readDecks} from '../../actions'
 import {fetchAllDecks} from '../../utils/storage'
 import DeckItem from './item'
 import TextButton from "../TextButton";
+import styles from "../styles";
 
 class DeckList extends Component {
     componentDidMount() {
@@ -38,17 +39,5 @@ class DeckList extends Component {
 }
 
 const mapStateToProps = decks => ({decks});
-
-const styles = StyleSheet.create({
-    deck: {
-        marginTop: 50,
-        alignItems: 'center'
-    },
-    title: {
-        fontSize: 40,
-        padding: 40,
-        textAlign: 'center'
-    },
-})
 
 export default connect(mapStateToProps, {readDecks})(DeckList)

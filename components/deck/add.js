@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {Alert, StyleSheet, Text, TextInput, View} from 'react-native'
+import {Alert, Text, TextInput, View} from 'react-native'
 import {addDeck} from '../../actions'
-import {black, grey} from '../../utils/colors'
+import {black} from '../../utils/colors'
 import {storeDeck} from "../../utils/storage";
 import TextButton from "../TextButton";
+import styles from "../styles";
 
 class AddDeck extends Component {
 
@@ -57,26 +58,5 @@ class AddDeck extends Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    deck: {
-        marginTop: 50,
-        alignItems: 'center'
-    },
-    title: {
-        fontSize: 40,
-        padding: 40,
-        textAlign: 'center'
-    },
-    deckTitle: {
-        height: 44,
-        width: 250,
-        padding: 4,
-        margin: 1,
-        borderRadius: 5,
-        borderColor: grey,
-        borderWidth: 0.5,
-    }
-})
 
 export default connect(null, {addDeck})(AddDeck)
