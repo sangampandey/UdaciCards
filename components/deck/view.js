@@ -9,14 +9,15 @@ import {udaci} from "../../utils/logs";
 class DeckView extends Component {
 
     componentDidMount() {
-        const {deck} = this.props
+        const {deck} = this.props.navigation.state.params
         udaci().info("DeckView :: componentDidMount")
         udaci().info("DeckView :: componentDidMount :: deck = "+JSON.stringify(deck))
     }
 
     render() {
 
-        const {deck} = this.props
+        const {deck} = this.props.navigation.state.params
+        console.log(deck)
         return (
             <View style={styles.deck}>
                 <View style={styles.deck_detail}>
@@ -29,10 +30,11 @@ class DeckView extends Component {
                     {deck}
                 )}/>
 
-                <TextButton text={"Start Quiz"} type={"black"} onPress={() => this.props.navigation.navigate(
+                {deck.questions.length > 0 && <TextButton text={"Start Quiz"} type={"black"} onPress={() => this.props.navigation.navigate(
                     'Quiz',
                     {questions: deck.questions}
-                )}/>
+                )}/>}
+
             </View>
         )
     }
@@ -59,11 +61,5 @@ const styles = StyleSheet.create({
 
 })
 
-function mapStateToProps(state, props) {
-    const {deck} = props.navigation.state.params
-    return {
-        deck: state[deck.title]
-    }
-}
 
-export default connect(mapStateToProps, {fetchDeck})(DeckView)
+export default connect(null, {fetchDeck})(DeckView)

@@ -1,5 +1,6 @@
-import { AsyncStorage } from 'react-native'
+import {AsyncStorage} from 'react-native'
 import {PROJECT_NAME} from "./constants";
+import {udaci} from "./logs";
 
 /**
  * = = = = = = = = = = = = = = = = = = = = = = = = = = = = = == = = = = = = = = = = = = = == = = = = = = = = = = = = =
@@ -23,8 +24,6 @@ export function fetchAllDecks () {
  * @returns {Promise.<TResult>}
  */
 export function fetchDeck (title) {
-    console.log("fetchDeck")
-    console.log(title)
     return AsyncStorage.getItem(PROJECT_NAME)
         .then(results => {
             const data = JSON.parse(results)
@@ -38,13 +37,22 @@ export function fetchDeck (title) {
  * @returns {Promise.<TResult>}
  */
 export function storeDeck (title) {
-    return AsyncStorage.getItem(PROJECT_NAME)
+
+    udaci().info("====================== storeDeck @STARTS======================")
+    udaci().info("title = "+title)
+
+    AsyncStorage.getItem(PROJECT_NAME)
         .then(results => {
             const data = JSON.parse(results)
             data[title] = {
                 title:title,
                 questions: []
             }
+
+            udaci().debug(JSON.stringify(title))
+            udaci().debug(JSON.stringify(data))
+            udaci().info("====================== storeDeck @ENDS======================")
+
             AsyncStorage.setItem(PROJECT_NAME, JSON.stringify(data))
         })
 }

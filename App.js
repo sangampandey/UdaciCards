@@ -17,6 +17,8 @@ import {PROJECT_NAME} from "./utils/constants";
 //this is to make sure user always start fresh
 AsyncStorage.clear();
 
+AsyncStorage.setItem(PROJECT_NAME, JSON.stringify({}))
+
 let store = createStore(deckListApp)
 
 //as per requirement we need to have two tabs i.e DeckView List and Add DeckView
