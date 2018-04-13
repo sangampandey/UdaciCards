@@ -24,6 +24,7 @@ export function fetchAllDecks () {
  * @returns {Promise.<TResult>}
  */
 export function fetchDeck (title) {
+    console.log("fetchDeck >> title = "+title);
     return AsyncStorage.getItem(PROJECT_NAME)
         .then(results => {
             const data = JSON.parse(results)
@@ -38,9 +39,6 @@ export function fetchDeck (title) {
  */
 export function storeDeck (title) {
 
-    udaci().info("====================== storeDeck @STARTS======================")
-    udaci().info("title = "+title)
-
     AsyncStorage.getItem(PROJECT_NAME)
         .then(results => {
             const data = JSON.parse(results)
@@ -48,11 +46,6 @@ export function storeDeck (title) {
                 title:title,
                 questions: []
             }
-
-            udaci().debug(JSON.stringify(title))
-            udaci().debug(JSON.stringify(data))
-            udaci().info("====================== storeDeck @ENDS======================")
-
             AsyncStorage.setItem(PROJECT_NAME, JSON.stringify(data))
         })
 }

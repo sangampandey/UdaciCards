@@ -8,16 +8,43 @@ import {udaci} from "../../utils/logs";
 import styles from "../styles";
 
 class DeckView extends Component {
+    state = {
+        deck: {
+            title: '',
+            questions: []
+        },
+        title: null
+    };
+
+    constructor(props) {
+        super(props);
+
+        udaci().log("DeckView >> constructor");
+    }
 
     componentDidMount() {
-        const {deck} = this.props.navigation.state.params
-        udaci().info("DeckView :: componentDidMount")
-        udaci().info("DeckView :: componentDidMount :: deck = "+JSON.stringify(deck))
+        udaci().log("DeckView >> componentDidMount");
+        const {deck, title} = this.props.navigation.state.params
+        console.log(title);
+        console.log(deck);
+
+        this.setState({
+            deck: deck,
+            title: title
+        })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        udaci().log("DeckView >> componentWillReceiveProps");
+
+        this.setState({
+            deck: nextProps[this.state.title],
+        })
     }
 
     render() {
 
-        const {deck} = this.props.navigation.state.params
+        const {deck} = this.state;
 
         return (
             <View style={styles.deck}>
@@ -41,5 +68,10 @@ class DeckView extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    console.log("DeckView >> mapStateToProps");
+    console.log(JSON.stringify(state));
+    return state;
+}
 
-export default connect(null, {fetchDeck})(DeckView)
+export default connect(mapStateToProps, {fetchDeck})(DeckView)

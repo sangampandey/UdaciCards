@@ -66,6 +66,7 @@ class Quiz extends Component {
                             alignHeight={true}
                             alignWidth={true}
                             flip={this.state.flip}
+                            perspective={1000}
                         >
                             {/* Question */}
                             <View style={styles.face}>

@@ -25,9 +25,10 @@ class AddDeck extends Component {
             Alert.alert("Alert", "Deck's title cannot be empty");
             return;
         }
+        ;
 
         //if all is valid then add it in our database
-        storeDeck(deckTitle)
+        storeDeck(deckTitle);
 
         const newDeck = {
             [deckTitle]: {
@@ -37,8 +38,7 @@ class AddDeck extends Component {
         }
         this.props.addDeck(newDeck)
         this.setState({ deckTitle:''});
-        console.log({deck: newDeck[deckTitle]})
-        this.props.navigation.navigate('DeckView', {deck: newDeck[deckTitle]})
+        this.props.navigation.navigate('DeckView', {title: deckTitle, deck: newDeck[deckTitle]})
     }
 
     render() {
